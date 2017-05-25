@@ -1,4 +1,5 @@
 class BlogsController < ApplicationController
+  #Runs before each method and makes the method variables available. Good practise to avoid duplicate code!
   before_action :set_blog, only: [:show, :edit, :update, :destroy]
 
   # GET /blogs
@@ -14,11 +15,13 @@ class BlogsController < ApplicationController
 
   # GET /blogs/new
   def new
+    #Blog.new does not create a new blog. It only gives us the ability to render the new form in views.
     @blog = Blog.new
   end
 
   # GET /blogs/1/edit
   def edit
+    #Just enables the edit view
   end
 
   # POST /blogs
@@ -29,10 +32,8 @@ class BlogsController < ApplicationController
     respond_to do |format|
       if @blog.save
         format.html { redirect_to @blog, notice: 'Blog was successfully created.' }
-        format.json { render :show, status: :created, location: @blog }
       else
         format.html { render :new }
-        format.json { render json: @blog.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -43,10 +44,8 @@ class BlogsController < ApplicationController
     respond_to do |format|
       if @blog.update(blog_params)
         format.html { redirect_to @blog, notice: 'Blog was successfully updated.' }
-        format.json { render :show, status: :ok, location: @blog }
       else
         format.html { render :edit }
-        format.json { render json: @blog.errors, status: :unprocessable_entity }
       end
     end
   end
